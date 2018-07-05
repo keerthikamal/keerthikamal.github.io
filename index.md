@@ -1,6 +1,6 @@
 <head>
-  <title>Sugandha</title>
+  <title>Keerthi</title>
 </head>
 # About Me
 <div style = "text-align: justify">
-I am currently pursuing MS at IIT Madras.
+I am currently pursuing PhD at IIT Madras.
