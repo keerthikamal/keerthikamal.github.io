@@ -1,268 +1,1071 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <title>Keerthi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam. Quis risus sed vulputate odio ut. Sed turpis tincidunt id aliquet risus feugiat in ante metus. Bibendum at varius vel pharetra vel turpis. Semper viverra nam libero justo laoreet sit amet cursus. Mauris a diam maecenas sed enim ut sem.">
-    <meta property="og:title" content="Keerthi" />
-    <meta property="og:description"
-        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Venenatis urna cursus eget nunc scelerisque viverra mauris in aliquam. Quis risus sed vulputate odio ut. Sed turpis tincidunt id aliquet risus feugiat in ante metus. Bibendum at varius vel pharetra vel turpis. Semper viverra nam libero justo laoreet sit amet cursus. Mauris a diam maecenas sed enim ut sem." />
-    <!-- <meta property="og:image" content="https://avron.gitlab.io/gruvhugo/img/author.webp" /> -->
-    <!-- <meta name="keywords" content="Gruvhugo, Hugo, Theme, Blog, Personal Website, Community page, free software, fediverse" />
-     -->
+    <title>Keerthi K - Hardware Security Researcher</title>
+    <meta name="description" content="Postdoctoral Researcher in Hardware Security at Temasek Laboratories, NTU Singapore. Specializing in fault injection, side-channel analysis, and cryptographic implementations.">
+    <meta name="keywords" content="hardware security, fault attack, vulnerability analysis, cryptography, embedded systems">
+    <meta name="author" content="Keerthi K">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css"
-        integrity="sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI" crossorigin="anonymous">
+    <!-- KaTeX for mathematical expressions -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --bg-color: #fff;
+            --border-color: #e0e0e0;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .dark {
+            --text-color: #e0e0e0;
+            --bg-color: #1a1a1a;
+            --primary-color: #4a5568;
+            --border-color: #333;
+            --shadow: 0 2px 10px rgba(255,255,255,0.1);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: all 0.3s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            }
+        /* Header */
+        header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active {
+            color: var(--secondary-color);
+            background-color: rgba(255,255,255,0.1);
+        }
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        .theme-toggle:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* Page Container */
+        .page {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .page.active {
+            display: block;
+            opacity: 1;
+        }
+        /* Main Content */
+        main {
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+        }
+        .intro-section {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2rem;
+            align-items: start;
+            margin-bottom: 3rem;
+        }
+        .profile-image {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-top: 50px;  /* moves image down */
+        }
+        .intro-content h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .quote {
+            font-style: italic;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            border-radius: 0 5px 5px 0;
+        }
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        .intro-text a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        .intro-text a:hover {
+            text-decoration: underline;
+        }
+        /* Sections */
+        .section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        .section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        .news-list {
+            list-style: none;
+        }
+        .news-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .news-list li:last-child {
+            border-bottom: none;
+        }
+        /* Publications */
+        .publication-item {
+            margin-bottom: 1rem;
+            padding: 1.5rem;
+            background: var(--bg-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+        }
+        .publication-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .publication-title a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        .publication-title a:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+        .publication-authors {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .publication-venue {
+            color: var(--secondary-color);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+        .publication-year {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        /* Awards */
+        .award-item {
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            background: var(--bg-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent-color);
+        }
+        .award-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .award-description {
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+        }
+        .award-year {
+            color: var(--secondary-color);
+            font-weight: 500;
+        }
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .social-links a {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            color: #666;
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+            display: none;
+        }
+        .mobile-nav-toggle {
+            display: block;
+        }
+        .intro-section {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .intro-content h1 {
+            font-size: 2rem;
+        }
+        .social-links {
+            justify-content: center;
+        }
+        }
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent-color);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+        /* Page Title */
+        .page-title {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            text-align: center;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        /* Interests Gallery Styles */
+        /* Interests Gallery Styles */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
 
+        .gallery-item {
+            background: var(--bg-color);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js"
-        integrity="sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t" crossorigin="anonymous">
-        </script>
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
 
+        .gallery-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
 
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js"
-        integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
-        onload="renderMathInElement(document.body);">
-        </script>
+        .gallery-item:hover .gallery-image {
+            transform: scale(1.05);
+        }
 
-    <meta name="keywords" content="fast, hugo, theme, minimal">
-    <!-- <link rel="icon" type="image/svg" href='https://avron.gitlab.io/gruvhugo/img/logo.png' /> -->
-    <meta name="author" content='keerthi'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="Hugo 0.86.0" />
+        .gallery-caption {
+            padding: .5rem;
+            text-align: center;
+        }
 
-    <link rel="stylesheet" href="css/addition.css" type="text/css" media="screen">
+        .gallery-caption h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+            font-size: 1rem;
+        }
 
-    <link rel="stylesheet" href="css/style.css">
+        .gallery-caption p {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 0.5;
+        }
 
+        /* Category Headers */
+        .interest-category {
+            margin-bottom: 3rem;
+        }
 
+        .category-title {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            position: relative;
+        }
 
+        .category-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
 
+        /* Lightbox Modal Styles */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease-in-out;
+        }
 
-    <link rel="alternate" type="application/rss+xml" href="https://avron.gitlab.io/gruvhugo/index.xml"
-        title="Keerthi" />
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            margin: auto;
+        }
+
+        .lightbox-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .lightbox-caption h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.2rem;
+        }
+
+        .lightbox-caption p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            font-size: 2rem;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .prev-btn {
+            left: -60px;
+        }
+
+        .next-btn {
+            right: -60px;
+        }
+
+        /* Click cursor for gallery images */
+        .gallery-image {
+            cursor: pointer;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.02);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .gallery-image {
+                height: 200px;
+            }
+            
+            .lightbox-content {
+                max-width: 95%;
+                max-height: 80%;
+            }
+            
+            .nav-btn {
+                font-size: 1.5rem;
+                padding: 8px 12px;
+            }
+            
+            .prev-btn {
+                left: -50px;
+            }
+            
+            .next-btn {
+                right: -50px;
+            }
+            
+            .close-btn {
+                font-size: 1.5rem;
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <h1>Keerthi K</h1>
+                    </div>
+                
+                    <nav>
+                        <ul>
+                            <li><a onclick="showPage('about')" id="nav-about" class="active">About Me</a></li>
+                            <li><a onclick="showPage('publications')" id="nav-publications">Publications</a></li>
+                            <li><a onclick="showPage('awards')" id="nav-awards">Awards</a></li>
+                            <li><a onclick="showPage('services')" id="nav-services">Services</a></li>
+                            <li><a onclick="showPage('interests')" id="nav-interests">Interests</a></li>
+                        </ul>
+                    </nav>
+                    
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        🌙
+                    </button>
 
-    <div class="line" id="scrollIndicator"></div>
-
-    <div class="main">
-        <div class="title">
-            <div class="nav-toggle name"  style="text-decoration: none; color: inherit;">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <div class="nav">
-                <a class="nav-link" href="index.html" style="text-decoration: none; color: white;">About Me</a>
-                <a href="publications.html">Publications/Posters</a>
-                <a href="awards.html">Awards and Recognitions</a>
-                <a href="services.html">Talks and Services</a>
-                <a href="hobbies.html">Interests</a>
-            </div>
-        </div>
-        <div class="intro">
-            <div class="title">
-                <div class="name">
-                    <h1><a href="index.html" style="text-decoration: none; color: inherit;">Keerthi K</a></h1>
-                </div>
-
-                <div class="color-scheme">
-                    <input type="checkbox" class="checkbox" id="chk" />
-                    <label class="label" for="chk">
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" role="img"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z">
-                            </path>
-                        </svg>
-                        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" role="img"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-                            <path fill="currentColor"
-                                d="M256 160c-52.9 0-96 43.1-96
-										96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l47.3-94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z">
-                            </path>
-                        </svg>
-                        <div class="ball"></div>
-                    </label>
+                    <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                        ☰
+                    </button>
                 </div>
             </div>
+        </header>
+        <main>
+        
+            <div class="container">
+                <!-- About Page -->
+                <div id="about" class="page active">
+                    <section class="intro-section">
+                        <img src="images/sample.png" alt="Keerthi K's profile picture" class="profile-image">
 
-            <script>
+                        <div class="intro-content">
+                            <!-- <h3>Hardware Security Researcher</h3> -->
 
-                const navToggle = document.querySelector(".nav-toggle");
-                const navMenu = document.querySelector(".nav");
+                            <div class="quote">
+                            "The most effective way to do it, is to do it." - Amelia Earhart
+                            </div>
 
-                navToggle.addEventListener("click", function () {
-                    navMenu.classList.toggle("show");
+                            <div class="intro-text">
+                                <p>Hello! I am currently a <strong>Postdoctoral Researcher</strong> at
+                                <a href="https://www.ntu.edu.sg/" target="_blank">Temasek Laboratories, Nanyang Technological University (NTU), Singapore</a>,
+                                where my research focuses on a wide range of topics in hardware security.
+                                My current work involves the development of advanced fault injection and side-channel analysis frameworks to evaluate and break embedded cryptographic implementations,
+                                as well as analyzing the resilience of secure boot mechanisms in microcontrollers and SoCs.</p>
+                                <p>Prior to this, I completed my Ph.D. in the
+                                <a href="http://www.cse.iitm.ac.in/" target="_blank">Department of Computer Science and Engineering at IIT Madras</a>,
+                                under the supervision of
+                                <a href="http://www.cse.iitm.ac.in/~chester/" target="_blank">Prof. Chester Rebeiro</a>.
+                                My doctoral research explored multiple facets of fault analysis, vulnerability detection, and the design of effective countermeasures
+                                using formal verification and program analysis techniques.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section">
+                        <h2>Area of Interests</h2>
+                        
+                        <p>Hardware Security • Fault Attack • Side Channel Analysis • Cryptography • Post Quantum cryptography</p>
+                    </section>
+                        
+                    <section class="section">
+                        <h2>Latest News</h2>
+
+                        <ul class="news-list">
+                            <li><strong>June 2025:</strong> IBM Best PhD Thesis Award, IIT Madras</li>
+                            <li><strong>April 2025:</strong> Technical Program Committee, AIHWS Workshop</li>
+                            <li><strong>October 2024:</strong> Joined as a PostDoc at NTU Singapore</li>
+                            <li><strong>August 2024:</strong> PhD Thesis Defence</li>
+                        </ul>
+                    </section>
+
+                <div class="social-links">
+                    <a href="https://scholar.google.com/citations?user=LhGAJYIAAAAJ&hl=en" target="_blank" title="Google Scholar" aria-label="Google Scholar">🎓</a>
+                    <a href="mailto:keerthi@cse.iitm.ac.in" target="_blank" title="Email" aria-label="Email">✉️</a>
+                    <a href="https://www.linkedin.com/in/keerthi-k-15666a119/" target="_blank" title="LinkedIn" aria-label="LinkedIn">💼</a>
+                    <a href="https://twitter.com/" target="_blank" title="Twitter" aria-label="Twitter">🐦</a>
+                    <a href="https://github.com/" target="_blank" title="GitHub" aria-label="GitHub">🐙</a>
+                </div>
+            </div>
+
+                <!-- Publications Page -->
+                <div id="publications" class="page">
+                    <h2 class="page-title">Publications</h2>
+                    <h2 style="color: var(--primary-color); margin-bottom: 1rem; font-size: 1.8rem;">Journal and Conference Papers</h2>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://dl.acm.org/doi/10.1145/3650029" target="_blank">FortiFix: A Fault Attack Aware Compiler Framework for Crypto Implementations</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Chester Rebeiro</div>
+                        <div class="publication-venue">ACM Transactions on Design Automation of Electronic Systems, 2024</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://tches.iacr.org/index.php/TCHES/article/view/10282" target="_blank">FaultMeter: Quantitative Fault Attack Assessment of Block Cipher Software</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Chester Rebeiro</div>
+                        <div class="publication-venue">Cryptographic Hardware and Embedded Systems,2023</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://tches.iacr.org/index.php/TCHES/article/view/8552" target="_blank">FEDS: Comprehensive Fault Attack Exploitability Detection for Software Implementations of Block Ciphers</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Indrani Roy, Chester Rebeiro, Aritra Hazra, Swarup Bhunia</div>
+                        <div class="publication-venue">Cryptographic Hardware and Embedded Systems, 2020</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://dl.acm.org/citation.cfm?id=3224205" target="_blank">An Algorithmic Approach to Formally Verify an ECC Library</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Chester Rebeiro, Aritra Hazra</div>
+                        <div class="publication-venue">ACM Transactions on Design Automation of Electronic Systems, 2018</div>
+                    </div>
+                    
+                    <!-- <h2 style="color: var(--primary-color); margin: 2rem 0 1rem 0; font-size: 1.8rem;">Conference Papers</h2> -->
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://www.computer.org/csdl/proceedings-article/dsn-s/2023/254500a206/1PuSUdssLx6" target="_blank">Secure Compiler Framework to Design Fault Attack Resistant Software</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Chester Rebeiro</div>
+                        <div class="publication-venue">53rd Annual IEEE/IFIP International Conference on Dependable Systems and Networks - Supplemental Volume, 2023</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://hal.archives-ouvertes.fr/hal-03692122/document" target="_blank">Practical Trust Performance Metrics for Block Cipher Evaluation in Automotive Environments</a>
+                        </div>
+                        <div class="publication-authors">Jacob Samuel, Keerthi K, Chester Rebeiro, Werner Schreiber, Geopeter Moothedan, Ralph Mader</div>
+                        <div class="publication-venue">11th European Congress Embedded Real Time Systems, 2022</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://link.springer.com/chapter/10.1007%2F978-3-030-02807-7_9" target="_blank">Formal Verification for Security in IoT Devices</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Indrani Roy, Chester Rebeiro, Aritra Hazra</div>
+                        <div class="publication-venue">Security and Fault Tolerance in Internet of Things, 2019</div>
+                    </div>
+                    
+                    <h2 style="color: var(--primary-color); margin: 2rem 0 1rem 0; font-size: 1.8rem;">Posters</h2>
+                    <div class="publication-item">
+                        <div class="publication-title">Compiler Assisted Automated Security Countermeasures for Embedded Crypto-Software</div>
+                        <div class="publication-authors">Keerthi K, Chester Rebeiro</div>
+                        <div class="publication-venue">ACM ARCS, 2024</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://cse.iitkgp.ac.in/conf/SPACE2020/best_papers.php" target="_blank">FEDS: Fault Attack Exploitability Detection for Software Implementations [Best Poster Award]</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Indrani Roy, Chester Rebeiro, Aritra Hazra, Swarup Bhunia</div>
+                        <div class="publication-venue">Tenth International Conference on Security, Privacy and Applied Cryptographic Engineering, 2020</div>
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">
+                            <a href="https://www.cse.iitm.ac.in/awards_details.php?arg=NTg=" target="_blank">An Algorithmic Approach to Formally Verify an ECC Library [Best Poster Award]</a>
+                        </div>
+                        <div class="publication-authors">Keerthi K, Chester Rebeiro</div>
+                        <div class="publication-venue">2nd ISEA International Conference on Security and Privacy, 2019</div>
+
+                    </div>
+
+                    <div class="publication-item">
+                        <div class="publication-title">Bifrost: A Low-Cost Covert Data Exfiltration via Smart Bulb</div>
+                        <div class="publication-authors">Keerthi K, Saurav Das, Muhammad Arsath, Sugandha Tiwari, Chester Rebeiro</div>
+                        <div class="publication-venue">Shastra TCS Poster Presentation, IIT Madras, 2019</div>
+                    </div>
+                </div>
+
+                <!-- Awards Page -->
+                <div id="awards" class="page">
+                    <h2 class="page-title">Awards & Recognition</h2>
+                    <div class="award-item">
+                        <div class="award-title">IBM Best PhD Thesis Award, 2025</div>
+                        <div class="award-description">Awarded by Indian Institute of Technology Madras for outstanding doctoral research</div>
+                    </div>
+
+                    <div class="award-item">
+                        <div class="award-title">Microsoft Research India Travel Grants, 2023 </div>
+                        <div class="award-description">Sponsored by <a href="https://www.microsoft.com/en-us/research/academic-program/academic-outreach/" target="_blank">Microsoft Research India</a> for attending top-tier computer science research conferences</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">ACM Travel Grants,2023</div>
+                        <div class="award-description">To attend ESWEEK 2023</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">IEEE Travel Grants, 2023</div>
+                        <div class="award-description">To attend DSN 2023</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Best Student Paper Presentation Award</div>
+                        <div class="award-description">Smart City Conference, 2023</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">64th Institute Day Prize for Bro.C.Selvam Endowment Award, 2023</div>
+                        <div class="award-description">Indian Institute of Technology Madras</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Institute Research Award, 2022</div>
+                        <div class="award-description">For the quality of research, awarded by Indian Institute of Technology Madras</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Huawei Fellowship for Excellence, 2022</div>
+                        <div class="award-description">Awarded for outstanding academic performance and research contributions</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Star TA Award, 2029, 2021</div>
+                        <div class="award-description">From Department of Computer Science & Engineering, IIT Madras</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Best Poster Award, 2020</div>
+                        <div class="award-description"><a href="https://cse.iitkgp.ac.in/conf/SPACE2020/best_papers.php" target="_blank">10th International Conference on Security, Privacy and Applied Cryptographic Engineering</a></div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Third Prize at Applied Research Competition, 2020</div>
+                        <div class="award-description"><a href="https://43f60238-2232-4612-9aac-81bc9da2dd4e.filesusr.com/ugd/acbc49_8df918cacb3c42238c573eabdda14847.pdf" target="_blank">Cyber Security and Awareness Week (CSAW 2020)</a>, New York University</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">TCS Research Fellowship (Cycle 16), 2020</div>
+                        <div class="award-description"><a href="https://www.tcs.com/research-scholarship-program-computer-science-phds-india" target="_blank">TCS Research Scholarship Program</a> for Computer Science PhDs in India</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">AWSAR Award, 2019</div>
+                        <div class="award-description">One of the <a href="https://www.awsar-dst.in/result2019" target="_blank">top 100 Science story (Rank 41)</a> conducted in India across all scientific fields by Department of Science and Technology, Government of India</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Third Prize at Applied Research Competition, 2019</div>
+                        <div class="award-description"><a href="https://csaw.engineering.nyu.edu/research/finalists" target="_blank">Cyber Security and Awareness Week (CSAW 2019)</a>, New York University</div>
+                    </div>
+                    <div class="award-item">
+                        <div class="award-title">Best Poster Award at PhD Forum, 2019</div>
+                        <div class="award-description"><a href="https://www.cse.iitm.ac.in/awards_details.php?arg=NTg=" target="_blank">2nd ISEA International Conference on Security and Privacy</a></div>
+                    </div>
+                </div>
+
+                <!-- Services Page -->
+                <div id="services" class="page">
+                    <!-- <h1 class="page-title">Professional Services</h1> -->
+
+                    <div class="section">
+                        <h2>Professional Services</h2>
+                        <ul style="list-style: disc; padding-left: 2rem; margin-top: 1rem;">
+                            <li><strong>Technical Program Committee</strong> AIHWS Workshop - AI for Hardware Security Workshop</li>
+                            <li><strong>Reviewer for COSADE conference, </strong> 2023 - 2024</li>
+                            <li><strong>Reviewer for IEEE TCAD,  </strong> - 2020,2021,2023,2024</li>
+                            <li><strong>Reviewer for Journal of Hardware and Systems Security (HASS)</strong> - 2020</li>
+            
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <h2>Mentoring & Supervision</h2>
+                        <ul style="list-style: disc; padding-left: 2rem; margin-top: 1rem;">
+                            <li>Mentored undergraduate students in research projects related to hardware security</li>
+                            <li>Co-supervised master's thesis projects on vulnerability analysis</li>
+                            <li>Teaching Assistant for multiple courses at IIT Madras (recognized with Star TA Awards)</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="interests" class="page">
+                    <!-- <h2 class="page-title">Personal Interests</h2> -->
+                    
+                    <!-- Drawing Section -->
+                    <div class="interest-category">
+                        <h2 class="category-title">Through my Brush</h2>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="images/Image1.jpeg" alt="Pencil sketch of a landscape" class="gallery-image" onclick="openLightbox(this)">
+                                <div class="gallery-caption">
+                                    <h3>The light</h3>
+                                    <p>A procreate art for candle light.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <img src="images/Image2.jpeg" alt="Portrait drawing" class="gallery-image" onclick="openLightbox(this)">
+                                <div class="gallery-caption">
+                                    <h3>The Sunset</h3>
+                                    <p>Acryclic Paint for the sunset.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="gallery-item">
+                                <img src="images/Image3.jpeg" alt="Abstract art piece" class="gallery-image" onclick="openLightbox(this)">
+                                <div class="gallery-caption">
+                                    <h3>The Tortoise</h3>
+                                    <p>Acrylic Paint.</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/Image4.jpeg" alt="Abstract art piece" class="gallery-image" onclick="openLightbox(this)">
+                                <div class="gallery-caption">
+                                    <h3>Portrait</h3>
+                                    <p>Pencil drawing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- Lightbox Modal -->
+                <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+                    <div class="lightbox-content">
+                        <button class="close-btn" onclick="closeLightbox()">&times;</button>
+                        <button class="nav-btn prev-btn" onclick="changeImage(-1)">&#10094;</button>
+                        <img id="lightbox-img" class="lightbox-image" src="" alt="">
+                        <button class="nav-btn next-btn" onclick="changeImage(1)">&#10095;</button>
+                        <div class="lightbox-caption">
+                            <h3 id="lightbox-title"></h3>
+                            <p id="lightbox-description"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+
+
+
+        <footer>
+            <div class="container">
+            <p>&copy; 2025 Keerthi K. All rights reserved under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution 4.0</a>.</p>
+            </div>
+        </footer>
+
+        <script>
+            // Navigation System
+            function showPage(pageId) {
+                // Hide all pages
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => {
+                    page.classList.remove('active');
                 });
+                
+                // Show selected page
+                const selectedPage = document.getElementById(pageId);
+                if (selectedPage) {
+                    selectedPage.classList.add('active');
+                }
+                
+                // Update navigation active state
+                const navLinks = document.querySelectorAll('nav a');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                const activeNavLink = document.getElementById(`nav-${pageId}`);
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active');
+                }
+                
+                // Scroll to top
+                window.scrollTo(0, 0);
+            }
 
-                // Close the navigation menu when clicking outside it
-                document.addEventListener("click", function (event) {
-                    if (!navMenu.contains(event.target) && !navToggle.contains(event.target)) {
-                        navMenu.classList.remove("show");
+            // Theme Toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const body = document.body;
+
+            // Check for saved theme preference or default to light mode
+            const currentTheme = body.classList.contains('dark') ? 'dark' : 'light';
+            if (currentTheme === 'dark') {
+                themeToggle.textContent = '☀️';
+            }
+
+            themeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                const isDark = body.classList.contains('dark');
+                themeToggle.textContent = isDark ? '☀️' : '🌙';
+            });
+
+            // Scroll Indicator
+            window.addEventListener('scroll', () => {
+                const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                document.getElementById('scrollIndicator').style.width = scrollPercentage + '%';
+            });
+
+            // Mobile Navigation Toggle
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const navMenu = document.querySelector('nav ul');
+
+            mobileNavToggle.addEventListener('click', () => {
+                navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 });
-                // document.querySelector(".nav-toggle").addEventListener("click", function () {
-                //     document.querySelector(".nav").classList.toggle("show");
-                // });
+            });
 
-                const themeSetter = (theme) => {
-                    document.body.classList.toggle('dark')
-                    localStorage.setItem('theme', theme)
-                    blockSwitcher()
+            // Initialize page on load
+            document.addEventListener('DOMContentLoaded', () => {
+                // Show about page by default
+                showPage('about');
+            });
+
+            let currentImageIndex = 0;
+            let allImages = [];
+
+            function initializeGallery() {
+                allImages = Array.from(document.querySelectorAll('.gallery-image'));
+            }
+
+            function openLightbox(imgElement) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const lightboxTitle = document.getElementById('lightbox-title');
+                const lightboxDescription = document.getElementById('lightbox-description');
+                
+                // Find current image index
+                currentImageIndex = allImages.indexOf(imgElement);
+                
+                // Set image and content
+                lightboxImg.src = imgElement.src;
+                lightboxImg.alt = imgElement.alt;
+                
+                // Get caption content from the gallery item
+                const galleryItem = imgElement.closest('.gallery-item');
+                const caption = galleryItem.querySelector('.gallery-caption');
+                lightboxTitle.textContent = caption.querySelector('h3').textContent;
+                lightboxDescription.textContent = caption.querySelector('p').textContent;
+                
+                // Show lightbox
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            function closeLightbox(event) {
+                // Close only if clicking on the lightbox background or close button
+                if (event && event.target.closest('.lightbox-content') && !event.target.classList.contains('close-btn')) {
+                    return;
                 }
+                
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            }
 
-                const blockSwitcher = () => [...document.getElementsByTagName("BLOCKQUOTE")]
-                    .forEach(b => b.classList.toggle('dark'))
-
-                const styleSwapper = () => {
-                    document.body.classList.add('back-transition')
-                    if (localStorage.getItem('theme') === 'dark') themeSetter('light')
-                    else if (localStorage.getItem('theme') === 'light') themeSetter('dark')
+            function changeImage(direction) {
+                currentImageIndex += direction;
+                
+                // Loop around if at beginning or end
+                if (currentImageIndex >= allImages.length) {
+                    currentImageIndex = 0;
+                } else if (currentImageIndex < 0) {
+                    currentImageIndex = allImages.length - 1;
                 }
+                
+                const newImg = allImages[currentImageIndex];
+                openLightbox(newImg);
+            }
 
-                if (localStorage.getItem('theme') === 'dark') {
-                    themeSetter('dark')
-                    document.addEventListener("DOMContentLoaded", blockSwitcher)
-                }
-                else localStorage.setItem('theme', 'light')
-
-                document.getElementById('chk').addEventListener('change', styleSwapper);
-
-                window.addEventListener("scroll", () => {
-                    let height = document.documentElement.scrollHeight
-                        - document.documentElement.clientHeight;
-                    if (height >= 500) {
-                        let winScroll = document.body.scrollTop
-                            || document.documentElement.scrollTop;
-                        let scrolled = (winScroll / height) * 100;
-                        document.getElementById("scrollIndicator").style.width = scrolled + "%";
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                const lightbox = document.getElementById('lightbox');
+                if (lightbox.classList.contains('active')) {
+                    switch(e.key) {
+                        case 'Escape':
+                            closeLightbox();
+                            break;
+                        case 'ArrowLeft':
+                            changeImage(-1);
+                            break;
+                        case 'ArrowRight':
+                            changeImage(1);
+                            break;
                     }
-                });
-            </script>
+                }
+            });
 
-
-
-            <div class="intro" style="align-items: center">
-
-                <img class="image" src='images/sample.png' title="" width="200px" alt="Author's picture" />
-                <ul>
-                    <li class="intro-quote">"The most effective way to do it, is to do it."<br> -Amelia Earhart</li>
-                </ul>
-
-              <p>
-    Hello! I am currently a Postdoctoral Researcher at 
-    <a target="_blank" href="https://www.ntu.edu.sg/">Temasek Laboratories, Nanyang Technological University (NTU), Singapore</a>, 
-    where my research focuses on a wide range of topics in hardware security. 
-    My current work involves the development of advanced fault injection and side-channel analysis frameworks to evaluate and break embedded cryptographic implementations, 
-    as well as analyzing the resilience of secure boot mechanisms in microcontrollers and SoCs.
-</p>
-
-<p>
-    Prior to this, I completed my Ph.D. in the 
-    <a target="_blank" href="http://www.cse.iitm.ac.in/">Department of Computer Science and Engineering at IIT Madras</a>, 
-    under the supervision of 
-    <a href="http://www.cse.iitm.ac.in/~chester/" target="_blank">Prof. Chester Rebeiro</a>. 
-    My doctoral research explored multiple facets of fault analysis, vulnerability detection, and the design of effective countermeasures 
-    using formal verification and program analysis techniques.
-</p>
- </div>
-
-            <footer id="footer"></footer>
-            <p> <strong> Area of Interests</strong>: Hardware Security, Fault Attack, Vulnerability Analysis</p>
-
-            <footer id="footer"></footer>
-            <p><strong> Latest News: </strong></p>
-            <ul>
-        <li>IBM Best PhD Thesis Award, IIT Madras, 2025 </li>
-        <li>Technical Program Committee, AIHWS Workshop 2025 </li>
-		<li>PhD Thesis Defence, August 2024 </li>
-		<li>Attended ACM Annual Event, held in Bhubaneshwar, Feb 8-9 2024 </li>
-            </ul>
-
-            <!-- <footer id="footer"></footer> -->
-            <!-- <p><strong> Contact Details: </strong>
-                SAFE Lab, Dept. of Computer Science and Engineering, IIT Madras
-            </p> -->
-
-            <footer id="footer">
-                <strong></strong>
-                <div class="social">
-                    &nbsp;
-                    <a href="https://scholar.google.com/citations?user=LhGAJYIAAAAJ&hl=en" target="_blank" rel="me"
-                        title="GoogleScholar" referrerpolicy="no-referrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M 14.660156 3.25 L 3.386719 10.308594 L 11.125 10.308594 C 11.097656 10.417969 11.050781 10.515625 11.027344 10.625 C 10.960938 10.964844 10.910156 11.34375 10.910156 11.734375 C 10.910156 16.773438 16.054688 16.207031 16.054688 16.207031 L 16.054688 17.492188 C 16.054688 18.011719 16.734375 17.832031 16.816406 18.890625 C 16.476562 18.890625 9.691406 18.695312 9.691406 23.277344 C 9.691406 27.882812 15.679688 27.65625 15.679688 27.65625 C 15.679688 27.65625 22.59375 27.964844 22.59375 22.273438 C 22.597656 18.871094 18.636719 17.765625 18.636719 16.398438 C 18.636719 15.015625 21.621094 14.609375 21.621094 11.375 C 21.621094 9.960938 21.523438 8.953125 20.890625 8.238281 C 20.84375 8.1875 20.808594 8.152344 20.761719 8.121094 C 20.75 8.109375 20.738281 8.101562 20.726562 8.09375 L 20.898438 8.09375 L 23.816406 5.902344 L 23.816406 8.898438 C 23.816406 8.953125 23.820312 9.007812 23.832031 9.0625 C 23.609375 9.1875 23.429688 9.363281 23.300781 9.585938 C 23.171875 9.808594 23.109375 10.050781 23.113281 10.308594 L 23.113281 11.722656 C 23.109375 11.910156 23.144531 12.09375 23.214844 12.269531 C 23.285156 12.445312 23.386719 12.597656 23.515625 12.734375 C 23.648438 12.867188 23.804688 12.972656 23.976562 13.042969 C 24.152344 13.117188 24.332031 13.152344 24.519531 13.152344 C 24.710938 13.152344 24.890625 13.117188 25.066406 13.042969 C 25.238281 12.972656 25.390625 12.867188 25.523438 12.734375 C 25.65625 12.597656 25.757812 12.445312 25.828125 12.269531 C 25.898438 12.09375 25.933594 11.910156 25.929688 11.722656 L 25.929688 10.308594 C 25.933594 10.050781 25.871094 9.808594 25.742188 9.585938 C 25.613281 9.363281 25.433594 9.1875 25.207031 9.0625 C 25.21875 9.007812 25.226562 8.953125 25.226562 8.898438 L 25.226562 4.839844 L 27.339844 3.25 Z M 15.632812 7.5625 C 16.039062 7.542969 16.445312 7.640625 16.835938 7.863281 C 17.125 8.007812 17.402344 8.21875 17.644531 8.480469 C 18.148438 8.984375 18.570312 9.714844 18.796875 10.578125 C 19.332031 12.625 18.636719 14.597656 17.191406 14.96875 C 15.765625 15.375 14.171875 14.039062 13.621094 12.007812 C 13.378906 11.015625 13.410156 10.054688 13.6875 9.292969 C 13.691406 9.28125 13.695312 9.273438 13.699219 9.265625 C 13.703125 9.261719 13.710938 9.257812 13.714844 9.253906 C 13.792969 8.953125 13.921875 8.679688 14.082031 8.457031 C 14.371094 8.035156 14.753906 7.746094 15.226562 7.617188 C 15.363281 7.585938 15.496094 7.566406 15.632812 7.5625 Z M 16.183594 19.75 C 18.566406 19.570312 20.597656 20.886719 20.746094 22.675781 C 20.84375 24.449219 19.007812 26.027344 16.605469 26.1875 C 14.222656 26.351562 12.160156 25.050781 12.046875 23.277344 C 11.933594 21.492188 13.78125 19.929688 16.183594 19.75 Z M 16.183594 19.75 ">
-                            </path>
-
-                        </svg>
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="mailto:keerthi@cse.iitm.ac.in" target="_blank" rel="me" title="Email"
-                        referrerpolicy="no-referrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                            </path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="https://www.linkedin.com/in/keerthi-k-15666a119/" target="_blank" rel="me" title="Linkedin"
-                        referrerpolicy="no-referrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z">
-                            </path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="https://twitter.com/" target="_blank" rel="me" title="Twitter"
-                        referrerpolicy="no-referrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
-                            </path>
-                        </svg>
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="https://github.com/" target="_blank" rel="me" title="Github" referrerpolicy="no-referrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
-                            </path>
-                        </svg>
-                    </a>
-                    &nbsp;&nbsp;
-                    <a href="https://about.gitlab.com/" target="_blank" rel="me" title="Gitlab"
-                        referrerpolicy="no-referrer">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path
-                                d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51L23 13.45a.84.84 0 0 1-.35.94z">
-                            </path>
-                        </svg>
-                    </a>
-                    &nbsp;
-                </div><strong></strong>
-                <p style="color:grey;">©. <a href="https://creativecommons.org/licenses/by/4.0/">All rights
-                        reserved</a>.</p>
-            </footer>
-        </div>
+            // Initialize gallery when page loads
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeGallery();
+            });
+        </script>
 </body>
 
-</html>
+<!-- 
+<div class="section">
+<h2>Reviewer</h2>
+<p>Details about reviewing activities will be added here.</p>
+</div>
+</div> --> 
+<!-- Interests Page -->
+<!-- <div id="interests" class="page">
+<h1 class="page-title">Research Interests</h1>
+<div class="section">
+<h2>Core Research Areas</h2>
+<p>My research focuses on various aspects of hardware security, with particular emphasis on:</p>
+<ul style="margin-top: 1rem; padding-left: 2rem;">
+<li><strong>Fault Injection Attacks:</strong> Developing advanced techniques for inducing and analyzing faults in cryptographic implementations</li>
+<li><strong>Side-Channel Analysis:</strong> Exploring information leakage through various side channels in embedded systems</li>
+<li><strong>Vulnerability Detection:</strong> Creating automated tools and frameworks for identifying security weaknesses</li>
+<li><strong>Countermeasure Design:</strong> Developing effective protection mechanisms against hardware-based attacks</li>
+<li><strong>Formal Verification:</strong> Applying mathematical methods to prove security properties of cryptographic implementations</li>
+</ul>
+</div>
+<div class="section">
+<h2>Current Focus</h2>
+<p>Currently working on advanced fault injection frameworks and side-channel analysis techniques for evaluating embedded cryptographic implementations and secure boot mechanisms in microcontrollers and SoCs.</p>
+</div>
+</div>
+</div> -->
+        
